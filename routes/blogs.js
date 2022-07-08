@@ -7,9 +7,15 @@ router.get('/hello-blogs', function(req, res, next) {
 })
 
 router.get('/all-blogs', async function(req, res, next) {
-    const collection = await blogsDB().collection('posts');
-    const allBlogs = await collection.find({}).toArray()
-    res.json(allBlogs)
+    try {
+        const collection = await blogsDB().collection('posts');
+        const allBlogs = await collection.find({}).toArray()
+        res.json({message:allBlogs})
+    }catch(e){
+        console.log(e)
+        res.status(e).send('error fetching data ' + e)
+    }
+    
 })
 
 module.exports = router;
