@@ -18,6 +18,8 @@ mongoConnect();
 //router for /blogs
 var blogsRouter = require('./routes/blogs');
 
+//router for /admin
+var adminRouter = require('./routes/admin')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,7 +41,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/blogs', blogsRouter);
-
+//admin use
+app.use('/admin', adminRouter);
 
 
 // catch 404 and forward to error handler

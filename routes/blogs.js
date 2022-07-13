@@ -63,11 +63,11 @@ router.post('/blog-submit', async function(req, res, next) {
             title:title,
             text:text,
             author:author,
-            createdAt: newDate.toLocaleString(),
-            lastModified: newDate.toLocaleString(),
+            createdAt: newDate.toISOString(),
+            lastModified: newDate.toISOString(),
             id: await getPostCollectionLength() + 1
         })
-        res.json({message:newPost})
+        res.status(200).json({message:newPost, success: true})
 
     }catch(e) {
         console.log(e)
