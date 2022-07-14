@@ -46,7 +46,7 @@ router.post('/blog-submit', async function(req, res, next) {
         const title = req.body.title;
         const text = req.body.text;
         const author = req.body.author;
-        const newDate = new Date()
+        const newDate = new Date();
 
         const getPostCollectionLength = async () => {
             try {

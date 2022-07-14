@@ -7,10 +7,11 @@ router.get('/blog-list', async function (req, res, next) {
     try {
         const collection = await blogsDB().collection('posts');
         const blogPosts = await collection.find({}).project({id:1, title:1, author:1, createdAt:1, lastModified:1}).toArray();
-        res.status(200).json({message:success, success: true});
-
+        res.status(200).json({message:blogPosts, success: true});
+        // in project, 1 means include, 0 means opposite.
     }catch (e) {
-        console.log(500).send({message:"Error fetching posts. ", success:false});
+        console.error(e)
+            res.json({success: false})
     } 
 });
 
@@ -46,7 +47,7 @@ router.put('/edit-blog', async function (req, res, next) {
     } 
 });
 
-router.delete('/delete-blog:blogId', async function (req, res, next) {
+router.delete('/delete-blog/:blogId', async function (req, res, next) {
     try {
         const blogId = Number(req.params.blogId)
         const collection = await blogsDB().collection("posts")
@@ -55,7 +56,8 @@ router.delete('/delete-blog:blogId', async function (req, res, next) {
         })    
         res.json({message:success, success:true})
     } catch (e) {
-        console.log(500).send({message:"Error fetching posts. ", success:false});
+        console.error(e)
+            res.json({success: false})
     }
 })
 
