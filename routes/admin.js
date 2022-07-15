@@ -32,7 +32,8 @@ router.put('/edit-blog', async function (req, res, next) {
         const collection = await blogsDB().collection('posts');
         
         await collection.updateOne({
-            id:blogId
+            // ????
+            // id:blogId
         },{
             $set:{
                 ...newPostData

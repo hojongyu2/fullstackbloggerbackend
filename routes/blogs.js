@@ -74,5 +74,20 @@ router.post('/blog-submit', async function(req, res, next) {
         res.status(500).send('error fetching data ' + e)
     }
 }) 
+
+router.get('/single-blog/:blogId', async function (req, res, next){
+
+    try {
+        const blogId = Number(req.params.blogId);
+        const collection = await blogsDB().collection("posts");
+        const blogPost = await collection.findOne({id: blogId});
+        // res.json({message:blogPost, success: true});
+        res.json(blogPost)
+
+    }catch(e){
+        console.log(e)
+        res.status(500).send('error fetching data ' + e)
+    }
+})
 module.exports = router;
 
