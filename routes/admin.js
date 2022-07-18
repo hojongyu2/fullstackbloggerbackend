@@ -19,10 +19,13 @@ router.get('/blog-list', async function (req, res, next) {
 //post is used to create new data
 
 router.put('/edit-blog', async function (req, res, next) {
+
     try {
+
         const newDate = new Date();
-    
+        console.log(req.body)
         const newPostData = {
+            id: req.body.blogId,
             title: req.body.title,
             author: req.body.author,
             text: req.body.text,
@@ -32,8 +35,8 @@ router.put('/edit-blog', async function (req, res, next) {
         const collection = await blogsDB().collection('posts');
         
         await collection.updateOne({
-            // ????
-            // id:blogId
+            
+            id:req.body.blogId
         },{
             $set:{
                 ...newPostData
@@ -44,7 +47,7 @@ router.put('/edit-blog', async function (req, res, next) {
 
     }catch (e) {
         console.error(e)
-        res.json({success: false})
+        res.json({success: "why false"})
     } 
 });
 
